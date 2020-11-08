@@ -5,16 +5,16 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<table>
-    <tr th:each="property: ${properties}">
-        <td th:text="${property.price}"/>
-        <td>
-            <a th:href="${property.link}">
-                <img th:src="${property.image}"/>
-            </a>
-        </td>
-    </tr>
-</table>
-
+    <table>
+        <tr th:each="property: ${properties}">
+            <td th:text="${property.immo}"/>
+            <td th:text="${property.price}"/>
+            <td>
+                <a target="_blank" th:href="${property.link}">
+                    <img th:src="${property.image}" style="width:360px; height:240px"/>
+                </a>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>

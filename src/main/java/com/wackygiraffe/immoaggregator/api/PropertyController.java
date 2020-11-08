@@ -24,7 +24,7 @@ public class PropertyController {
 
     @GetMapping("/properties")
     public String listProperties(Model model) {
-        List<Property> properties = immos.stream()
+        List<Property> properties = immos.parallelStream()
                 .map(immo -> immo.query(new ImmoCriteria()))
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
