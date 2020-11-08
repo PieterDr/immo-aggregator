@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Immo Aggregator</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<table>
+    <tr th:each="property: ${properties}">
+        <td th:text="${property.price}"/>
+        <td>
+            <a th:href="${property.link}">
+                <img th:src="${property.image}"/>
+            </a>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
