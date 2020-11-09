@@ -3,18 +3,40 @@
 <head>
     <title>Immo Aggregator</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        li {
+            list-style: none;
+            height: 400px;
+            width: 400px;
+            flex-grow: 1;
+        }
+        li:last-child {
+            /*There's no science in using "10" here. In all my testing, this delivered the best results.*/
+            flex-grow: 10;
+        }
+        img {
+            object-fit: cover;
+            vertical-align: bottom;
+        }
+    </style>
 </head>
 <body>
-    <table>
-        <tr th:each="property: ${properties}">
-            <td th:text="${property.immo}"/>
-            <td th:text="${property.price}"/>
-            <td>
-                <a target="_blank" th:href="${property.link}">
-                    <img th:src="${property.image}" style="width:360px; height:240px"/>
-                </a>
-            </td>
-        </tr>
-    </table>
+    <ul>
+        <li th:each="property: ${properties}">
+            <a target="_blank" th:href="${property.link}">
+                <img th:src="${property.image}" style="width:360px; height:240px"/>
+            </a>
+            <p th:text="${property.immo}"/>
+            <p th:text="${property.price}"/>
+        </li>
+        <!--  Adding an empty <li> here so the final photo doesn't stretch like crazy. Try removing it and see what happens!  -->
+        <li></li>
+    </ul>
+
+
 </body>
 </html>
