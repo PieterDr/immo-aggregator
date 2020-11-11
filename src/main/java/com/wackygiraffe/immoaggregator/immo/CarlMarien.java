@@ -31,7 +31,7 @@ class CarlMarien implements Immo {
     public List<Property> query(ImmoCriteria criteria) {
         List<Property> properties = new ArrayList<>();
 
-        LOGGER.info("Retrieving properties from {}", SEARCH_URL);
+        LOGGER.info("Retrieving properties from: {}", SEARCH_URL);
         Element body = Jsoup.parse(restTemplate.getForObject(SEARCH_URL, String.class)).body();
         Elements results = body.select(".property");
         for (Element property : results) {
