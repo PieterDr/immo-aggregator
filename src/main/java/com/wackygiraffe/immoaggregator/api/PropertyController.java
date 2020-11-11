@@ -6,11 +6,13 @@ import com.wackygiraffe.immoaggregator.immo.Property;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Controller
 public class PropertyController {
@@ -24,11 +26,13 @@ public class PropertyController {
 
     @GetMapping("/properties")
     public String listProperties(Model model) {
-        List<Property> properties = immos.parallelStream()
+        LinkedMultiValueMap<String, Property> properties = new LinkedMultiValueMap<>();
+        immos.parallelStream()
                 .map(immo -> immo.query(new ImmoCriteria()))
                 .flatMap(Collection::stream)
-                .collect(Collectors.toList());
-        model.addAttribute("properties", properties);
+                .forEach(property -> properties.add(property.getImmo(), property));
+        model.addAttribute("immos", properties.keySet());
+        model.addAttribute("properties", properties.values().stream().flatMap(List::stream).collect(toList()));
         return "properties";
     }
 }

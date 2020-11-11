@@ -4,6 +4,11 @@
     <title>Immo Aggregator</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <style>
+
+        .immo-header {
+            margin-left: 50px;
+        }
+
         ul {
             display: flex;
             flex-wrap: wrap;
@@ -11,7 +16,7 @@
 
         li {
             list-style: none;
-            height: 400px;
+            height: 350px;
             width: 370px;
             margin: 15px;
             padding-left: 20px;
@@ -23,28 +28,32 @@
             /*There's no science in using "10" here. In all my testing, this delivered the best results.*/
             flex-grow: 10;
             border: none;
+            height: 0px;
         }
 
         img {
             object-fit: cover;
             vertical-align: bottom;
+            margin-top: 30px;
             width: 360px;
             height: 240px
         }
     </style>
 </head>
 <body>
-<ul>
-    <li th:each="property: ${properties}">
-        <h2 th:text="${property.immo}"/>
-        <a target="_blank" th:href="${property.link}">
-            <img th:src="${property.image}"/>
-        </a>
-        <h2 th:text="${property.price}"/>
-    </li>
-    <!--  Adding an empty <li> here so the final photo doesn't stretch like crazy. Try removing it and see what happens!  -->
-    <li></li>
-</ul>
+<div th:each="immo: ${immos}">
+    <h1 class="immo-header" th:text="${immo}"/>
+    <ul>
+        <li th:each="property: ${properties}" th:if="${property.immo} == ${immo}">
+            <a target="_blank" th:href="${property.link}">
+                <img th:src="${property.image}"/>
+            </a>
+            <h2 th:text="${property.price}"/>
+        </li>
+        <!--  Adding an empty <li> here so the final photo doesn't stretch like crazy. Try removing it and see what happens!  -->
+        <li></li>
+    </ul>
+</div>
 
 
 </body>
