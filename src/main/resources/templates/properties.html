@@ -21,7 +21,7 @@
         }
 
         .property {
-            height: 350px;
+            height: 400px;
             max-width: 380px;
 
             margin: 15px 15px 40px;
@@ -53,20 +53,38 @@
         .property-info {
             width: 360px;
         }
+
         .property-price {
             float: left;
         }
+
         .property-location {
             float: right;
+        }
+
+        button {
+            width: 360px;
+            height: 50px;
+
+            font-size: 25px;
+            font-weight: bold;
+            color: #3e3d3d;
         }
     </style>
 </head>
 <body>
 <div>
+    <div style="margin-left: 50px">
+        <h1 id="ignore-list-info"></h1>
+        <button onclick="clearIgnoreList()">Clear</button>
+    </div>
+
     <div th:each="immo: ${immos}">
         <h1 class="immo-header" th:text="${immo}"/>
         <ul class="properties-container">
-            <li class="property" th:each="property: ${properties}" th:if="${property.immo} == ${immo}">
+            <li th:each="property: ${properties}"
+                th:id="${property.link}" class="property"
+                th:if="${property.immo} == ${immo}">
                 <a target="_blank" th:href="${property.link}">
                     <img th:src="${property.image}"/>
                 </a>
@@ -74,13 +92,56 @@
                     <h2 class="property-price" th:text="${property.price}"/>
                     <h2 class="property-location">Mechelen</h2>
                 </div>
+                <button th:attr="onclick=|remove(this, '${property.link}')|">Remove</button>
             </li>
             <!--  Adding an empty <li> here so the final photo doesn't stretch like crazy. Try removing it and see what happens!  -->
             <li class="empty-li"></li>
         </ul>
     </div>
+
+    <script>
+        const IGNORE_LIST_KEY = "ignoreList="
+
+        function setIgnoreList(value) {
+            document.cookie = IGNORE_LIST_KEY + JSON.stringify(value) + ";expires=01 Jan 2100 00:00:00 UTC";
+        }
+
+        function initializeIgnoreList() {
+            if (document.cookie === "") {
+                console.log("Initializing ignoreList...")
+                setIgnoreList([]);
+            }
+        }
+
+        function clearIgnoreList() {
+            setIgnoreList([]);
+            location.reload();
+        }
+
+        function getIgnoreList() {
+            let split = document.cookie.split(IGNORE_LIST_KEY);
+            return JSON.parse(split[1]);
+        }
+
+        function remove(elem, id) {
+            console.log("Removing " + id);
+            elem.parentNode.remove();
+            let ignoreList = getIgnoreList();
+            ignoreList.push(id);
+            setIgnoreList(ignoreList)
+            updateIgnoreListInfo();
+        }
+
+        function updateIgnoreListInfo() {
+            document.getElementById("ignore-list-info").innerText = "# of removed properties: " + getIgnoreList().length;
+        }
+
+        initializeIgnoreList();
+        updateIgnoreListInfo();
+        getIgnoreList().forEach(function (id) {
+            document.getElementById(id).remove();
+        });
+    </script>
 </div>
-
-
 </body>
 </html>
