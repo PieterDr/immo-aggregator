@@ -29,6 +29,11 @@ class Copandi implements Immo {
     }
 
     @Override
+    public String name() {
+        return "Copandi";
+    }
+
+    @Override
     public List<Property> query(ImmoCriteria criteria) {
         List<Property> properties = new ArrayList<>();
         int page = 1;
@@ -42,7 +47,7 @@ class Copandi implements Immo {
                     .filter(PropertyDto::isAvailable)
                     .filter(property -> property.price != null)
                     .map(property -> new Property(
-                            "Copandi",
+                            name(),
                             property.getPrice(),
                             RESULT_BASE_URL + property.getPath(),
                             BASE_URL + property.getImage()

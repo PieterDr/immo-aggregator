@@ -28,6 +28,11 @@ class Era implements Immo {
     }
 
     @Override
+    public String name() {
+        return "Era";
+    }
+
+    @Override
     public List<Property> query(ImmoCriteria criteria) {
         List<Property> result = new ArrayList<>();
         int page = 1;
@@ -42,7 +47,7 @@ class Era implements Immo {
                 if (!property.getElementsByClass("in-option").isEmpty()) continue;
                 Element imageLink = property.getElementsByClass("field-name-field-property-main-visual").get(0).getElementsByClass("field-item").get(0);
                 result.add(new Property(
-                        "Era",
+                        name(),
                         property.getElementsByClass("field-name-era-actuele-vraagprijs--c").get(0).getElementsByClass("field-item").get(0).text(),
                         BASE_URL + imageLink.getElementsByTag("a").get(0).attr("href"),
                         imageLink.getElementsByTag("img").get(0).attr("src")

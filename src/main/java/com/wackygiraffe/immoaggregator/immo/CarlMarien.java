@@ -28,6 +28,11 @@ class CarlMarien implements Immo {
     }
 
     @Override
+    public String name() {
+        return "Carl Mariën";
+    }
+
+    @Override
     public List<Property> query(ImmoCriteria criteria) {
         List<Property> properties = new ArrayList<>();
 
@@ -41,7 +46,7 @@ class CarlMarien implements Immo {
             // Price is empty when property has been sold
             if (!price.isEmpty()) {
                 properties.add(new Property(
-                        "Carl Mariën",
+                        name(),
                         price.split(" ")[1],
                         BASE_URL + image.getElementsByTag("a").get(0).attr("href"),
                         image.getElementsByTag("img").get(0).attr("src")

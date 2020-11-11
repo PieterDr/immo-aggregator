@@ -30,6 +30,11 @@ class ImmoID implements Immo {
     }
 
     @Override
+    public String name() {
+        return "Immo ID";
+    }
+
+    @Override
     public List<Property> query(ImmoCriteria criteria) {
         List<Property> properties = new ArrayList<>();
 
@@ -59,7 +64,7 @@ class ImmoID implements Immo {
             // Price is empty when property has been sold
             if (!price.isEmpty()) {
                 properties.add(new Property(
-                        "Immo ID",
+                        name(),
                         price.split(" ")[1],
                         BASE_URL + image.getElementsByTag("a").get(0).attr("href"),
                         image.getElementsByTag("img").get(0).attr("src")
