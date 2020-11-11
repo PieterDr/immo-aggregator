@@ -9,7 +9,7 @@ public class Property {
 
     public Property(String immo, String price, String link, String image) {
         this.immo = immo;
-        this.price = price;
+        this.price = price.replaceFirst("€ ", "").replaceAll(" ", ".");
         this.link = link;
         this.image = image;
     }
