@@ -15,14 +15,14 @@
             margin-left: 50px;
         }
 
-        ul {
+        .properties-container {
             display: flex;
             flex-wrap: wrap;
         }
 
         .property {
             height: 350px;
-            width: 370px;
+            max-width: 380px;
 
             margin: 15px 15px 40px;
             padding-left: 20px;
@@ -49,18 +49,31 @@
             width: 360px;
             height: 240px
         }
+
+        .property-info {
+            width: 360px;
+        }
+        .property-price {
+            float: left;
+        }
+        .property-location {
+            float: right;
+        }
     </style>
 </head>
 <body>
 <div>
     <div th:each="immo: ${immos}">
         <h1 class="immo-header" th:text="${immo}"/>
-        <ul>
+        <ul class="properties-container">
             <li class="property" th:each="property: ${properties}" th:if="${property.immo} == ${immo}">
                 <a target="_blank" th:href="${property.link}">
                     <img th:src="${property.image}"/>
                 </a>
-                <h2 th:text="${property.price}"/>
+                <div class="property-info">
+                    <h2 class="property-price" th:text="${property.price}"/>
+                    <h2 class="property-location">Mechelen</h2>
+                </div>
             </li>
             <!--  Adding an empty <li> here so the final photo doesn't stretch like crazy. Try removing it and see what happens!  -->
             <li class="empty-li"></li>
