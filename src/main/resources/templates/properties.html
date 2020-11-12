@@ -127,8 +127,8 @@
         }
 
         function getIgnoreList() {
-            let split = document.cookie.split(IGNORE_LIST_KEY);
-            return JSON.parse(split[1]);
+            let ignoreList = document.cookie.split(IGNORE_LIST_KEY)[1].split(";")[0];
+            return JSON.parse(ignoreList);
         }
 
         function remove(elem, id) {
