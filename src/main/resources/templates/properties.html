@@ -10,9 +10,17 @@
             color: floralwhite;
         }
 
+        .immo-container {
+            margin: 20px;
+
+            border: #3e3d3d;
+            background-color: #3e3d3d;
+        }
+
         .immo-header {
             font-size: 40px;
             margin-left: 50px;
+            padding-top: 20px;
         }
 
         .properties-container {
@@ -28,8 +36,8 @@
             padding-left: 20px;
 
             list-style: none;
-            background-color: #3e3d3d;
-            border: solid black;
+            /*border: solid black;*/
+            background-color: dimgrey;
 
             flex-grow: 1;
         }
@@ -79,7 +87,7 @@
         <button onclick="clearIgnoreList()">Clear</button>
     </div>
 
-    <div th:each="immo: ${immos}">
+    <div class="immo-container" th:each="immo: ${immos}">
         <h1 class="immo-header" th:text="${immo}"/>
         <ul class="properties-container">
             <li th:each="property: ${properties}"
